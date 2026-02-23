@@ -1,3 +1,22 @@
 spring:
   application:
-    name: simple-noteApp
+    name: simple-noteApp # 프로젝트의 이름
+
+  datasource:
+    # 데이터를 메모리가 아닌 프로젝트 내 'data' 폴더 파일에 저장합니다.
+    url: jdbc:h2:file:./data/testdb;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true # 브라우저에서 DB를 확인할 수 있는 콘솔 활성화
+
+  jpa:
+    hibernate:
+      ddl-auto: update # 기존 테이블을 유지하며 변경사항만 반영
+    show-sql: true # 실행되는 SQL문을 콘솔에 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL문을 보기 좋게 포맷팅
