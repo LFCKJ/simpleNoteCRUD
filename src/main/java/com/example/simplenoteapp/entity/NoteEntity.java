@@ -24,4 +24,9 @@ private String title;
 private String content;
 private LocalDateTime createdAt;
 
+public void update(String title, String content){
+    this.title = title;
+    this.content = content;
+}
+
 }
