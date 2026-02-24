@@ -18,19 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor //생성자를 따로 안 짜도 리포지토리를 가져옴
 public class NoteService {
     private final NoteRepository noteRepository;
-    public NoteEntity saveNote(String title, String content){
-        //예외처리
-        if(title == null || title.trim().isEmpty()){
-            throw new IllegalArgumentException("메모 제목은 비어있을 수 없습니다.");
-        }
-        if(content == null || content.trim().isEmpty()){
-            throw new IllegalArgumentException("메모 내용은 비어있을 수 없습니다.");
-        }
-
-       //1. 객체 생성(빌더 사용)
+    public NoteEntity saveNote(NoteRequest request){
+       //1. 객체 생성(빌더 사용) NoteRequest를 인자로 받아 코드를 직관적으로 바꿈
         NoteEntity noteEntity = NoteEntity.builder()
-                .title(title)
-                .content(content)
+                .title(request.getTitle())
+                .content(request.getContent())
                 .createdAt(LocalDateTime.now())
                 .build();
         //2.리포지토리를 통해 DB에 저장하고, 저장된 결과를 리턴
@@ -52,13 +44,6 @@ public class NoteService {
         //1.수정할 기존 메모를 찾는다(없으면 예외처리)
         NoteEntity noteEntity = noteRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 메모가 없습니다 ID:"+id));
-        //예외처리
-        if(request.getTitle() == null || request.getTitle().trim().isEmpty()){
-            throw new IllegalArgumentException("제목은 필수입니다.");
-        }
-        if(request.getContent() == null || request.getContent().trim().isEmpty()){
-            throw new IllegalArgumentException("내용은 필수입니다.");
-        }
         //2.객체의 내용을 변경한다.
         //Entity에 데이터를 바꾸는 메서드를 따로 만들거나, 빌더 대신 Setter /  업데이트 메서드를 활용한다.
         noteEntity.update(request.getTitle(), request.getContent());

@@ -3,6 +3,7 @@ package com.example.simplenoteapp.controller;
 import com.example.simplenoteapp.dto.NoteRequest;
 import com.example.simplenoteapp.entity.NoteEntity;
 import com.example.simplenoteapp.service.NoteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,10 @@ public class NoteController {
 
     //=====데이터 생성(저장)
     @PostMapping
-    public NoteEntity saveNote(@RequestBody NoteRequest request){
+    public NoteEntity saveNote(@Valid @RequestBody NoteRequest request){
         //1.request 에서 title과 content를 꺼낸다.
-        return noteService.saveNote(request.getTitle(), request.getContent());
+        //서비스의 파라미터가 NoteRequest로 바뀌었으므로 통째로 넘긴다.
+        return noteService.saveNote(request);
         //2.noteService.saveNote(title, content)를 호출한다.
         //3.결과 반환
     }
@@ -27,15 +29,17 @@ public class NoteController {
     public NoteEntity readNoteById(@PathVariable Long id){
         return noteService.getNoteById(id);
     }
+
     @GetMapping
     public List<NoteEntity> findAll(){
         return noteService.getAllNote();
     }
+
     //===========데이터 수정(Update)
     @PutMapping("/{id}")
     public NoteEntity updateNote(
             @PathVariable Long id,
-            @RequestBody NoteRequest request){
+            @Valid @RequestBody NoteRequest request){
         return noteService.updateNote(id, request);
     }
     //==========데이터 삭제(Delete)
