@@ -9,8 +9,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor // 기본 생성자(Jackson 라이브러리가 JSON을 객체로 바꿀 때 필요)
+@AllArgsConstructor //모든 필드를 포함한 생성자
 public class NoteRequest {
     //Valid
     @NotBlank(message = "제목은 필수 입력 사항입니다")

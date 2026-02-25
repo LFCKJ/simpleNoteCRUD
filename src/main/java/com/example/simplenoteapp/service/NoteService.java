@@ -2,6 +2,7 @@ package com.example.simplenoteapp.service;
 
 import com.example.simplenoteapp.dto.NoteRequest;
 import com.example.simplenoteapp.entity.NoteEntity;
+import com.example.simplenoteapp.mapper.NoteMapper;
 import com.example.simplenoteapp.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -18,13 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor //생성자를 따로 안 짜도 리포지토리를 가져옴
 public class NoteService {
     private final NoteRepository noteRepository;
+    private final NoteMapper noteMapper;
+
     public NoteEntity saveNote(NoteRequest request){
        //1. 객체 생성(빌더 사용) NoteRequest를 인자로 받아 코드를 직관적으로 바꿈
-        NoteEntity noteEntity = NoteEntity.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .createdAt(LocalDateTime.now())
-                .build();
+        NoteEntity noteEntity = noteMapper.toEntity(request);
         //2.리포지토리를 통해 DB에 저장하고, 저장된 결과를 리턴
         return noteRepository.save(noteEntity);
     }
