@@ -1,5 +1,6 @@
 package com.example.simplenoteapp.exception;
 
+import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -47,4 +48,6 @@ public class GlobalExceptionhandler {
                 .build();//DTO에 적은 Message가 출력
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+
 }

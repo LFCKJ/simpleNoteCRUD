@@ -20,3 +20,8 @@ spring:
     properties:
       hibernate:
         format_sql: true # SQL문을 보기 좋게 포맷팅
+
+  # application.yml 예시
+  jwt:
+    secret: z6v9y$B&E)H@McQfTjWnZr4u7x!A%C*F-JaNdRgUkXp2s5v8y/B?E(G+KbPeShVm  # 아주 길고 복잡한 문자열
+    expiration_time: 3600000 # 1시간 (밀리초 단위)
