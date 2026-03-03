@@ -3,7 +3,6 @@ spring:
     name: simple-noteApp # 프로젝트의 이름
 
   datasource:
-    # 데이터를 메모리가 아닌 프로젝트 내 'data' 폴더 파일에 저장합니다.
     url: jdbc:h2:file:./data/testdb;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
@@ -11,17 +10,17 @@ spring:
 
   h2:
     console:
-      enabled: true # 브라우저에서 DB를 확인할 수 있는 콘솔 활성화
+      enabled: true
 
   jpa:
     hibernate:
-      ddl-auto: update # 기존 테이블을 유지하며 변경사항만 반영
-    show-sql: true # 실행되는 SQL문을 콘솔에 출력
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        format_sql: true # SQL문을 보기 좋게 포맷팅
+        format_sql: true
 
-  # application.yml 예시
-  jwt:
-    secret: z6v9y$B&E)H@McQfTjWnZr4u7x!A%C*F-JaNdRgUkXp2s5v8y/B?E(G+KbPeShVm  # 아주 길고 복잡한 문자열
-    expiration_time: 3600000 # 1시간 (밀리초 단위)
+# 👇 여기부터 수정! spring과 같은 라인(맨 앞)으로 빼주세요.
+jwt:
+  secret: V2hhdEFEZWFkYmVlZlNlY3JldEtleVN0cmluZzEyMzQ1Njc4OTA=
+  expiration_time: 3600000
