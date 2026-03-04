@@ -2,7 +2,6 @@ package com.example.simplenoteapp.config;
 
 import com.example.simplenoteapp.security.jwt.JwtAuthenticationFilter;
 import com.example.simplenoteapp.security.jwt.JwtTokenProvider;
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +40,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 //4.우리가 만든 JWT필터를 시큐리티 필터 체인에 끼워 넣는다.
                 //usernamePasswordAuthenticationFilter(기본 로그인 필터)가 실행되기 전에 우리 필터를 먼저 돌린다.
-                .addFilterBefore((Filter) new JwtAuthenticationFilter(jwtTokenProvider),
+                .addFilterBefore( new JwtAuthenticationFilter(jwtTokenProvider),
                                 UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

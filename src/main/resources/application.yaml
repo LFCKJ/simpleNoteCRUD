@@ -1,6 +1,8 @@
 spring:
   application:
     name: simple-noteApp # 프로젝트의 이름
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
   datasource:
     url: jdbc:h2:file:./data/testdb;DB_CLOSE_ON_EXIT=FALSE
