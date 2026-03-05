@@ -3,7 +3,6 @@ package com.example.simplenoteapp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.management.relation.Role;
 
 //로그인에 필요한 아이디, 비밀번호, 권한(ROLE)
 @Entity
