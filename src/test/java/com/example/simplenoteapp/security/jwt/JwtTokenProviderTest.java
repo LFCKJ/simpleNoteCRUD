@@ -67,6 +67,35 @@ public class JwtTokenProviderTest {
         assertThat(isValid).isFalse();
     }
 
+    //ValidateToken 테스트 로직
+    //성공케이스: 정상적인 토큰은 true를 반환해야 한다.
+    @Test
+    @DisplayName("유효한 토큰을 검증하면 결과가 True여야 한다.")
+    void validateTokenTrue(){
+        //[given] //정상적인 토큰을 하나 생성
+        String token = tokenProvider.generateToken("testUser","ROLE_USEER");
+
+        //[when] //유효성 검사 메서드를 호출한다
+        boolean isValid = tokenProvider.validateToken(token);
+
+        //[then] // 결과값이 true인지 확인
+        assertThat(isValid).isTrue();
+    }
+
+    //실패 케이스 : 잘못 된 토큰은 예외를 던져야 한다.
+    @Test
+    @DisplayName("변조된 토큰을 검증하면 JwtException이 발생해야 한다")
+    void validateToken_Fail() {
+        // [Given] 아무 글자나 적은 가짜 토큰을 준비
+        String invalidToken = "wrong.token.value";
+
+        // [When & Then] 메서드를 실행했을 때 특정 예외가 발생하는지 검증
+        // AssertJ의 assertThatThrownBy를 사용하면 편리하다.
+        org.junit.jupiter.api.Assertions.assertThrows(io.jsonwebtoken.JwtException.class, () -> {
+            tokenProvider.validateToken(invalidToken);
+        });
+    }
+
 }
 /**
  * tokenProvider.getUsername(token) :
